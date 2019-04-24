@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notification Demo</title>
+</head>
+<body>
+    <input type="button" value="桌面提醒" id="button1">
+
+    <script>
+       var btn = document.querySelector('#button1');
+       var notification = null;
+       btn.addEventListener("click",load);
+       function load(){
+           if(Notification.permission === "granted"){
+              //發送訊息
+              console.log("granted")
+
+           }else if(Notification.permission === "default"){
+              //要求權限
+              //console.log("default")
+              getPermission(load);
+           }else{
+               console.log("拒絕通知!!")
+           }
+       }
+
+       function getPermission(cb){
+           //要求權限完成，再回頭執行load()
+           Notification.requestPermission(cb);
+       }
+    </script>
+</body>
+</html>
